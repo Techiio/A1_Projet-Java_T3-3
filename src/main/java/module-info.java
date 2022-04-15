@@ -9,6 +9,7 @@ module com.example.a1_projetjava_t33 {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires javafx.graphics;
 
     opens com.example.a1_projetjava_t33 to javafx.fxml;
     exports com.example.a1_projetjava_t33;
