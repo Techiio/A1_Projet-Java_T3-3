@@ -8,12 +8,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class Interface {
     Game game;
@@ -23,7 +26,7 @@ public class Interface {
     }
 
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Riz co sheh ta mère");
+        stage.setTitle("Riz co sheh");
 
         int numCols = 16 ;
         int numRows = 16 ;
