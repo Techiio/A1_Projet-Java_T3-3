@@ -1,13 +1,21 @@
 package com.example.a1_projetjava_t33;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,39 +24,50 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Interface {
-    Game game;
-
-    public Interface(Game game) {
-        this.game = game;
-    }
+    ProgressBar bar;
+    Button btnTop;
 
     public void start(Stage stage) throws IOException {
         stage.setTitle("Riz co sheh");
 
-        int numCols = 16 ;
-        int numRows = 16 ;
+        int numCols = 16;
+        int numRows = 16;
         BooleanProperty[][] switches = new BooleanProperty[numCols][numRows];
-        for (int x = 0 ; x < numCols ; x++) {
-            for (int y = 0 ; y < numRows ; y++) {
+        for (int x = 0; x < numCols; x++) {
+            for (int y = 0; y < numRows; y++) {
                 switches[x][y] = new SimpleBooleanProperty();
             }
         }
-
 
         BorderPane root = new BorderPane();
 
         root.setPadding(new Insets(15, 20, 10, 10));
 
         // TOP
-        Button btnTop = CustomButtonFactory.createButton("J'ai trouvé un chemin ! ", "BOOM Timer");
+        FlowPane topBorderPane = new FlowPane();
+        root.setTop(topBorderPane);
 
+        btnTop = new Button("J'ai trouvé un chemin !");
+        btnTop.setOnAction(event -> {launchProgressBar();});
         btnTop.setPadding(new Insets(10, 10, 10, 10));
-        root.setTop(btnTop);
-        // Set margin for top area.
+
+        bar = new ProgressBar(0);
+        bar.setPrefWidth(500);
+
+        bar.setPadding(new Insets(10, 10, 10, 10));
+
+
+        topBorderPane.getChildren().add(btnTop);
+        topBorderPane.getChildren().add(bar);
         BorderPane.setMargin(btnTop, new Insets(10, 10, 10, 10));
+        BorderPane.setMargin(bar, new Insets(10, 10, 10, 10));
+
+
 
 
         // LEFT
@@ -83,9 +102,32 @@ public class Interface {
         BorderPane.setMargin(btnBottom, new Insets(10, 10, 10, 10));
 
 
-        Scene scene = new Scene(root, 600, 600);
+        Scene scene = new Scene(root, 745, 750);
         scene.getStylesheets().add(new File("C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\grid-with-borders.css").toURI().toURL().toExternalForm());
         stage.setScene(scene);
         stage.show();
+
     }
+
+    public void launchProgressBar(){
+        btnTop.setText("Timer en cours :)");
+        Task task = new Task<Void>() {
+            @Override public Void call() {
+                final int max = 1000000000;
+                for (int i = 1; i <= max; i++) {
+                    updateProgress(i, max);
+                }
+                Platform.runLater(new Runnable(){
+                    @Override
+                    public void run() {
+                        btnTop.setText("Fin de la réflexion !");
+                    }
+                });
+                return null;
+            }
+        };
+        bar.progressProperty().bind(task.progressProperty());
+        new Thread(task).start();
+    }
+
 }

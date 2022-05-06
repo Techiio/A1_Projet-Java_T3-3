@@ -53,6 +53,14 @@ public class Menu {
         root.getChildren().addAll();
 //--------------------------------Bouton JOUER ------------------------------------------------
         Button btnplay = new Button("Jouer");
+        btnplay.setOnAction(event -> {
+                    Interface jeu = new Interface();
+            try {
+                jeu.start(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         btnplay.setTranslateX(350);// pixel par rapport au "mur" de gauche
         btnplay.setTranslateY(200);// pixel par rapport au "plafond"
         btnplay.setScaleX(4);
