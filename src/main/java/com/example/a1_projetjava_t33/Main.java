@@ -8,14 +8,15 @@ import java.io.IOException;
 
 public class Main extends Application {
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         Game game = new Game();
         game.playGame();
-        Interface javaFx = new Interface(game);
+        Menu javaFx = new Menu(game);
         javaFx.start(stage);
+
     }
 }
