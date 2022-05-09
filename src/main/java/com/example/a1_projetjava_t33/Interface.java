@@ -77,6 +77,11 @@ public class Interface {
         // Set margin for left area.
         BorderPane.setMargin(btnLeft, new Insets(10, 10, 10, 10));
 
+        Label label = new Label("Joueurs : \n ");
+        root.setLeft(label);
+
+        BorderPane.setMargin(label, new Insets(10, 10, 10, 10));
+
         // CENTER
         GridPane grid = GridPaneWithLines.createGrid(switches);
         StackPane panelPane = new StackPane(grid);
