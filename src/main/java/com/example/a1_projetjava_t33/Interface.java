@@ -10,15 +10,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Interface {
     ProgressBar bar;
     Button btnTop;
+    AudioClip sound;
 
     public void start(Stage stage) throws IOException {
         stage.setTitle("Riz co sheh");
@@ -41,7 +47,9 @@ public class Interface {
         root.setTop(topBorderPane);
 
         btnTop = new Button("J'ai trouvé un chemin !");
-        btnTop.setOnAction(event -> {launchProgressBar();});
+        btnTop.setOnAction(event -> {
+            launchProgressBar();
+        });
         btnTop.setPadding(new Insets(10, 10, 10, 10));
 
         bar = new ProgressBar(0);
@@ -110,9 +118,12 @@ public class Interface {
 
     public void launchProgressBar(){
         btnTop.setText("Timer en cours :)");
+        String musicFile = "elevator.mp3";
+        AudioClip sound = new AudioClip(this.getClass().getResource("Sounds/"+ musicFile).toExternalForm());
+        sound.play();
         Task task = new Task<Void>() {
             @Override public Void call() {
-                final int max = 10000000;
+                final int max = 1000000000;
                 for (int i = 1; i <= max; i++) {
                     updateProgress(i, max);
                 }
@@ -120,6 +131,8 @@ public class Interface {
                     @Override
                     public void run() {
                         btnTop.setText("Fin de la réflexion !");
+                        sound.stop();
+
                     }
                 });
                 return null;
