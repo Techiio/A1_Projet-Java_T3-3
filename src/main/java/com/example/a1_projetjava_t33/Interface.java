@@ -73,7 +73,7 @@ public class Interface {
         Label label = new Label("Joueurs : \n " + joueur);
         root.setLeft(label);
 
-        BorderPane.setMargin(label, new Insets(10, 10, 10, 10));
+        BorderPane.setMargin(label, new Insets(20, 20, 20, 20));
 
         // CENTER
         GridPane grid = GridPaneWithLines.createGrid(switches);
@@ -101,7 +101,7 @@ public class Interface {
 
 
         Scene scene = new Scene(root, 745, 690);
-        //scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
+        scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
 
         stage.setScene(scene);
         stage.show();
