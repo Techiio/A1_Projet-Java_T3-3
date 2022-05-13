@@ -115,9 +115,7 @@ public class GridPaneWithLines {
                         letter = "P";
                         break;
                 }
-                sourceImage[x][y] =  "C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\Cases\\"+letter+ String.format("%d",x+1) +".jpg";
-                //sourceImage[x][y] =  "C:\Users\atryu\OneDrive\Bureau\Cours et Devoirs\A1\java\src\main\resources\com\example\a1_projetjava_t33\Cases\"+letter+ String.format("%d",y+1) +".jpg";
-
+                sourceImage[x][y] =  GridPaneWithLines.class.getResource("Cases/" + letter + String.format("%d",x+1) +".jpg").toString();
                 grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);
 
             }
