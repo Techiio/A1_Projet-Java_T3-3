@@ -26,7 +26,7 @@ public class Menu {
         stage.setTitle("Menu Principal");
         stage.setResizable(false);
         Pane root = new Pane();
-        root.setPrefSize(745, 750);
+        root.setPrefSize(745, 690);
 
 //--------------------------------Image de fond ------------------------------------------------
         Image backimg = new Image("https://tetu.com/wp-content/uploads/2021/09/powerrangers-1280x720.jpeg");

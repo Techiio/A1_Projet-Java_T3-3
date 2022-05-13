@@ -50,72 +50,72 @@ public class GridPaneWithLines {
             for (int y = 0; y < numRows; y++) {
                 String[][] sourceImage = new String[16][16];
                 String letter = "";
-                switch(x){
-                    case 0:
+                switch(y){
+                    case 15:
                         letter = "A";
                         break;
 
-                    case 1:
+                    case 14:
                         letter = "B";
                         break;
 
-                    case 2:
+                    case 13:
                         letter = "C";
                         break;
 
-                    case 3:
+                    case 12:
                         letter = "D";
                         break;
 
-                    case 4:
+                    case 11:
                         letter = "E";
                         break;
 
-                    case 5:
+                    case 10:
                         letter = "F";
                         break;
 
-                    case 6:
+                    case 9:
                         letter = "G";
                         break;
 
-                    case 7:
+                    case 8:
                         letter = "H";
                         break;
 
-                    case 8:
+                    case 7:
                         letter = "I";
                         break;
 
-                    case 9:
+                    case 6:
                         letter = "J";
                         break;
 
-                    case 10:
+                    case 5:
                         letter = "K";
                         break;
 
-                    case 11:
+                    case 4:
                         letter = "L";
                         break;
 
-                    case 12:
+                    case 3:
                         letter = "M";
                         break;
 
-                    case 13:
+                    case 2:
                         letter = "N";
                         break;
 
-                    case 14:
+                    case 1:
                         letter = "O";
                         break;
 
-                    case 15:
+                    case 0:
                         letter = "P";
                         break;
                 }
-                sourceImage[x][y] =  "C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\Cases\\"+letter+ String.format("%d",y+1) +".jpg";
+                sourceImage[x][y] =  "C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\Cases\\"+letter+ String.format("%d",x+1) +".jpg";
                 //sourceImage[x][y] =  "C:\Users\atryu\OneDrive\Bureau\Cours et Devoirs\A1\java\src\main\resources\com\example\a1_projetjava_t33\Cases\"+letter+ String.format("%d",y+1) +".jpg";
 
                 grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);

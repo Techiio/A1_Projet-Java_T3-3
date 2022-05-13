@@ -100,8 +100,8 @@ public class Interface {
         BorderPane.setMargin(btnBottom, new Insets(10, 10, 10, 10));
 
 
-        Scene scene = new Scene(root, 745, 750);
-        scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
+        Scene scene = new Scene(root, 745, 690);
+        //scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
 
         stage.setScene(scene);
         stage.show();
