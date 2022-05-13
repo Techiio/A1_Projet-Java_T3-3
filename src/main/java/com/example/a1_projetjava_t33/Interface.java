@@ -101,7 +101,8 @@ public class Interface {
 
 
         Scene scene = new Scene(root, 745, 750);
-        scene.getStylesheets().add(new File("C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\grid-with-borders.css").toURI().toURL().toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
+
         stage.setScene(scene);
         stage.show();
 
@@ -111,7 +112,7 @@ public class Interface {
         btnTop.setText("Timer en cours :)");
         Task task = new Task<Void>() {
             @Override public Void call() {
-                final int max = 1000000000;
+                final int max = 10000000;
                 for (int i = 1; i <= max; i++) {
                     updateProgress(i, max);
                 }
