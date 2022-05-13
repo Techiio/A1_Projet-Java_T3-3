@@ -1,40 +1,26 @@
 package com.example.a1_projetjava_t33;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.scene.text.Text;
-import javafx.scene.control.Label;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
 
 
 public class Menu {
     Game game;
-    public Integer nbplayer;
+    public static Integer nbplayer;
 
     public Menu(Game game) {
         this.game = game;
     }
 
-    public void start(Stage stage) throws IOException {
-
-        nbplayer = 0;
+    public Integer start(Stage stage) throws IOException {
+        nbplayer = 1;
 
 //--------------------------------Creation fenetre ------------------------------------------------
         stage.setTitle("Menu Principal");
@@ -91,8 +77,10 @@ public class Menu {
         btnleft.setScaleY(3);
         root.getChildren().add(btnleft);
         btnleft.setOnAction(event -> {
-            nbplayer  = nbplayer - 1;
-            center.setText(nbplayer.toString());
+            if(nbplayer > 1) {
+                nbplayer = nbplayer - 1;
+                center.setText(nbplayer.toString());
+            }
         });
 
         Button btnright = new Button(">");
@@ -102,8 +90,10 @@ public class Menu {
         btnright.setScaleY(3);
         root.getChildren().add(btnright);
         btnright.setOnAction(event -> {
-            nbplayer = nbplayer + 1;
-            center.setText(nbplayer.toString());
+            if(nbplayer < 8) {
+                nbplayer = nbplayer + 1;
+                center.setText(nbplayer.toString());
+            }
 
         });
 
@@ -113,6 +103,7 @@ public class Menu {
         stage.setScene(scene);
         stage.show();
 
+        return nbplayer;
     }
 
 }

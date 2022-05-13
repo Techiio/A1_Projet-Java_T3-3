@@ -8,15 +8,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class GridPaneWithLines {
-    private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y) {
-
+    private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y, String letter) {
+        String selectImage = letter + y;
         StackPane cell = new StackPane();
 
         Image img = new Image(sourceImage[x][y]);
         ImageView imgView = new ImageView(img);
         cell.getChildren().add(imgView);
 
-        cell.setOnMouseClicked(e -> cellSwitch.set(!cellSwitch.get()));
+
+        cell.setOnMouseClicked(e -> {
+            cellSwitch.set(!cellSwitch.get());
+            System.out.println(selectImage);
+        });
         Circle circle = new Circle(10, Color.CORNFLOWERBLUE);
         circle.visibleProperty().bind(cellSwitch);
         cell.getChildren().add(circle);
@@ -112,7 +116,7 @@ public class GridPaneWithLines {
                         break;
                 }
                 sourceImage[x][y] =  "C:\\Users\\techi\\Documents\\GitHub\\A1_Projet-Java_T3-3\\src\\main\\resources\\com\\example\\a1_projetjava_t33\\Cases\\"+letter+ String.format("%d",y+1) +".png";
-                grid.add(createCell(switches[x][y], sourceImage, x, y), x, y);
+                grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);
 
             }
         }

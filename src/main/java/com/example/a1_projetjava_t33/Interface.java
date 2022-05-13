@@ -1,31 +1,19 @@
 package com.example.a1_projetjava_t33;
-
-import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class Interface {
@@ -77,7 +65,12 @@ public class Interface {
         // Set margin for left area.
         BorderPane.setMargin(btnLeft, new Insets(10, 10, 10, 10));
 
-        Label label = new Label("Joueurs : \n ");
+        String joueur = "";
+        for(int i = 1; i <= Menu.nbplayer; i++) {
+            joueur = joueur + "Joueur " + i + "\n";
+        }
+
+        Label label = new Label("Joueurs : \n " + joueur);
         root.setLeft(label);
 
         BorderPane.setMargin(label, new Insets(10, 10, 10, 10));
