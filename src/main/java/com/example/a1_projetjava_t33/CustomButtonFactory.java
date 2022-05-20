@@ -1,7 +1,7 @@
 package com.example.a1_projetjava_t33;
 
 import javafx.scene.control.Button;
-
+// Code de bouton personnalisable présent dans un des TP
 public class CustomButtonFactory {
     private Button button;
 
