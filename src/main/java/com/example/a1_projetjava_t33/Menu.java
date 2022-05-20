@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-
+//Menu du jeu
 public class Menu {
     Game game;
     public static Integer nbplayer;
@@ -76,6 +76,7 @@ public class Menu {
         btnleft.setScaleX(3.5);
         btnleft.setScaleY(3);
         root.getChildren().add(btnleft);
+        //Diminution du nombre de joueurs
         btnleft.setOnAction(event -> {
             if(nbplayer > 1) {
                 nbplayer = nbplayer - 1;
@@ -89,6 +90,7 @@ public class Menu {
         btnright.setScaleX(3.5);
         btnright.setScaleY(3);
         root.getChildren().add(btnright);
+        //Augmentation du nombre de joueurs
         btnright.setOnAction(event -> {
             if(nbplayer < 8) {
                 nbplayer = nbplayer + 1;
