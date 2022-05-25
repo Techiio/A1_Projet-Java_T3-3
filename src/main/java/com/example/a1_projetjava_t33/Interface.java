@@ -109,18 +109,18 @@ public class Interface {
         File dir = new File(this.getClass().getResource("Token/").toExternalForm().replaceAll("file:/","")); //Récupération du dossier avec la liste
         File[] files = dir.listFiles();//Création de la liste présente
         int nbToken = files.length;
-        int randomIndex = (int)(Math.random() * nbToken); //Random token selectionné
 
-        String token = files[randomIndex].getAbsolutePath(); //Choix de token
-        Image img = new Image(token);
+
+        //Initialisation du champ image pour le token
+        Image img = new Image(this.getClass().getResource("white.png").toExternalForm());
         ImageView imgView = new ImageView(img);
 
-        imgView.setFitWidth(50);
-        imgView.setFitHeight(50);
-
-        rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView);
-
+        rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
+        int randomIndex = 99;
+        randomToken(nbToken, files, imgView, randomIndex);
         root.setRight(rightBorderPane);
+
+
 
 //--------------------------------LEFT - NB PLAYERS + TURNS WIN------------------------------------------------
 
@@ -150,6 +150,7 @@ public class Interface {
                 //S'il reste des token la partie continue
                 if(usedToken.get() < nbToken){
                     turnWin.play();
+                    randomToken(nbToken, files, imgView, randomIndex);
                     usedToken.set(usedToken.get() + 1);
                 //Sinon on fait le décompte des points et affiche le vainqueur
                 }else{
@@ -204,6 +205,7 @@ public class Interface {
         stage.show();
 
     }
+
     //--------------------------------Barre de progression ------------------------------------------------
     public void launchProgressBar(){
         btnTop.setText("Timer en cours :)");
@@ -233,6 +235,39 @@ public class Interface {
         };
         bar.progressProperty().bind(task.progressProperty());
         new Thread(task).start();
+    }
+
+    //--------------------------------Mise à jour des tokens ------------------------------------------------
+    public static int randomToken(int nbToken, File[] files, ImageView imgView, int randomIndex) {
+        //Initialisation d'une blacklist: tokens déjà utilisés
+        List<Integer> blacklist = new ArrayList();
+        blacklist.add(index);
+
+
+        //Vérification si le random sorti correspond à un token restant
+        boolean wrongIndex = true;
+        while (wrongIndex) {
+            randomIndex = (int) (Math.random() * nbToken);
+            for(int index : blacklist){
+                if(index == randomIndex){
+                    wrongIndex = true;
+                }else{
+                    wrongIndex = false;
+                }
+            }
+        }
+
+        //Récupération du lien vers le token
+        String token = files[randomIndex].getAbsolutePath();
+
+        //Affichage de la nouvelle image liée au token
+        Image Newimg = new Image(token);
+        imgView.setImage(Newimg);
+
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(50);
+
+        return randomIndex;
     }
 
 }
