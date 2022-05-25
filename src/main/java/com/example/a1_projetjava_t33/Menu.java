@@ -32,7 +32,7 @@ public class Menu {
         //Musique du menu
         String musicFile = "theme_song.mp3";
         AudioClip sound = new AudioClip(this.getClass().getResource("Sounds/"+ musicFile).toExternalForm());
-        sound.setVolume(0.05);
+        sound.setVolume(0.1);
         sound.play();
 
         //Son lors d'un clic

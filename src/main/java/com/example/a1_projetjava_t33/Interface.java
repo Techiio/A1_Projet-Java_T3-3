@@ -60,12 +60,11 @@ public class Interface {
         //Son lors d'une manche gagnée
         String turnWinFile = "turn_win.mp3";
         AudioClip turnWin = new AudioClip(this.getClass().getResource("Sounds/"+ turnWinFile).toExternalForm());
-        turnWin.setVolume(0.5);
+        turnWin.setVolume(0.2);
 
         //Son lors d'une victoire
         String victoryFile = "victory.mp3";
         AudioClip victory = new AudioClip(this.getClass().getResource("Sounds/"+ victoryFile).toExternalForm());
-        victory.setVolume(0.5);
 
         //On créer notre "toile"
         BorderPane root = new BorderPane();
