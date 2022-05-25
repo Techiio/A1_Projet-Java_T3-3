@@ -241,7 +241,7 @@ public class Interface {
     public static int randomToken(int nbToken, File[] files, ImageView imgView, int randomIndex) {
         //Initialisation d'une blacklist: tokens déjà utilisés
         List<Integer> blacklist = new ArrayList();
-        blacklist.add(index);
+        blacklist.add(randomIndex);
 
 
         //Vérification si le random sorti correspond à un token restant
