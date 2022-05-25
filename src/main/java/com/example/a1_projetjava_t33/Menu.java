@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -28,6 +29,22 @@ public class Menu {
         Pane root = new Pane();
         root.setPrefSize(745, 690);
 
+        //Musique du menu
+        String musicFile = "theme_song.mp3";
+        AudioClip sound = new AudioClip(this.getClass().getResource("Sounds/"+ musicFile).toExternalForm());
+        sound.setVolume(0.05);
+        sound.play();
+
+        //Son lors d'un clic
+        String soundFile = "clic.mp3";
+        AudioClip clic = new AudioClip(this.getClass().getResource("Sounds/"+ soundFile).toExternalForm());
+        clic.setVolume(0.5);
+
+        //Son lors d'une erreur
+        String errorFile = "error.mp3";
+        AudioClip erreur = new AudioClip(this.getClass().getResource("Sounds/"+ errorFile).toExternalForm());
+        erreur.setVolume(0.5);
+
 //--------------------------------Image de fond ------------------------------------------------
         Image backimg = new Image("https://tetu.com/wp-content/uploads/2021/09/powerrangers-1280x720.jpeg");
         BackgroundImage bImg = new BackgroundImage(backimg,
@@ -44,6 +61,8 @@ public class Menu {
         btnplay.setOnAction(event -> {
                     Interface jeu = new Interface();
             try {
+                clic.play();
+                sound.stop();
                 jeu.start(stage);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,8 +98,11 @@ public class Menu {
         //Diminution du nombre de joueurs
         btnleft.setOnAction(event -> {
             if(nbplayer > 1) {
+                clic.play();
                 nbplayer = nbplayer - 1;
                 center.setText(nbplayer.toString());
+            }else{
+                erreur.play();
             }
         });
 
@@ -93,8 +115,11 @@ public class Menu {
         //Augmentation du nombre de joueurs
         btnright.setOnAction(event -> {
             if(nbplayer < 8) {
+                clic.play();
                 nbplayer = nbplayer + 1;
                 center.setText(nbplayer.toString());
+            }else{
+                erreur.play();
             }
 
         });

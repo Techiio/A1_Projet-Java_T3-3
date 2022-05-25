@@ -42,6 +42,15 @@ public class Interface {
             }
         }
 
+        //Son lors d'un clic
+        String soundFile = "clic.mp3";
+        AudioClip clic = new AudioClip(this.getClass().getResource("Sounds/"+ soundFile).toExternalForm());
+        clic.setVolume(0.5);
+
+        //Son lors d'une erreur
+        String errorFile = "error.mp3";
+        AudioClip erreur = new AudioClip(this.getClass().getResource("Sounds/"+ errorFile).toExternalForm());
+        erreur.setVolume(0.5);
         //On créer notre "toile"
         BorderPane root = new BorderPane();
 
@@ -54,6 +63,7 @@ public class Interface {
         btnTop = new Button("J'ai trouvé un chemin !");
         //On créé une barre de progression signifiant le timer
         btnTop.setOnAction(event -> {
+            clic.play();
             launchProgressBar();
         });
         btnTop.setPadding(new Insets(10, 10, 10, 10));
@@ -123,6 +133,7 @@ public class Interface {
         //Musique d'attente
         String musicFile = "elevator.mp3";
         AudioClip sound = new AudioClip(this.getClass().getResource("Sounds/"+ musicFile).toExternalForm());
+        sound.stop();
         sound.play();
         //Evolution de la barre de progression
         Task task = new Task<Void>() {
