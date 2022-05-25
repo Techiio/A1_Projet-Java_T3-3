@@ -116,7 +116,7 @@ public class Interface {
         ImageView imgView = new ImageView(img);
 
         rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
-        int randomIndex = 99;
+        int randomIndex = 0;
         randomToken(nbToken, files, imgView, randomIndex);
         root.setRight(rightBorderPane);
 
