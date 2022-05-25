@@ -27,7 +27,7 @@ public class Menu {
         stage.setTitle("Menu Principal");
         stage.setResizable(false);
         Pane root = new Pane();
-        root.setPrefSize(745, 690);
+        root.setPrefSize(760, 660);
 
         //Musique du menu
         String musicFile = "theme_song.mp3";

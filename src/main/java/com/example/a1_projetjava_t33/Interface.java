@@ -13,16 +13,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 //Interface de jeu
 public class Interface {
@@ -30,7 +28,7 @@ public class Interface {
     Button btnTop;
     AudioClip sound;
 
-    //Lancement de la fenêtre
+    //--------------------------------Lancement fenetre ------------------------------------------------
     public void start(Stage stage) throws IOException {
         stage.setTitle("Riz co sheh");
 
@@ -46,6 +44,8 @@ public class Interface {
             }
         }
 
+        int usedToken = 1;
+//--------------------------------Sons ------------------------------------------------
         //Son lors d'un clic
         String soundFile = "clic.mp3";
         AudioClip clic = new AudioClip(this.getClass().getResource("Sounds/"+ soundFile).toExternalForm());
@@ -55,14 +55,26 @@ public class Interface {
         String errorFile = "error.mp3";
         AudioClip erreur = new AudioClip(this.getClass().getResource("Sounds/"+ errorFile).toExternalForm());
         erreur.setVolume(0.5);
+
+        //Son lors d'une manche gagnée
+        String turnWinFile = "turn_win.mp3";
+        AudioClip turnWin = new AudioClip(this.getClass().getResource("Sounds/"+ turnWinFile).toExternalForm());
+        turnWin.setVolume(0.5);
+
+        //Son lors d'une victoire
+        String victoryFile = "victory.mp3";
+        AudioClip victory = new AudioClip(this.getClass().getResource("Sounds/"+ victoryFile).toExternalForm());
+        victory.setVolume(0.5);
+
         //On créer notre "toile"
         BorderPane root = new BorderPane();
 
         root.setPadding(new Insets(15, 20, 10, 10));
 
-        //----------------------- Partie haute de la "toile"
+//--------------------------------TOP - REFLEXION ------------------------------------------------
         FlowPane topBorderPane = new FlowPane();
         root.setTop(topBorderPane);
+
         //Bouton lorsqu'un joueur a trouvé un chemin
         btnTop = new Button("J'ai trouvé un chemin !");
         //On créé une barre de progression signifiant le timer
@@ -77,45 +89,26 @@ public class Interface {
 
         bar.setPadding(new Insets(10, 10, 10, 10));
 
-        //On ajoute les deux composants à la ----------------------- Partie haute de la "toile"
+        //On ajoute la partie haute à la toile
         topBorderPane.getChildren().add(btnTop);
         topBorderPane.getChildren().add(bar);
         BorderPane.setMargin(btnTop, new Insets(10, 10, 10, 10));
         BorderPane.setMargin(bar, new Insets(10, 10, 10, 10));
 
-
-
-
-        //----------------------- Partie gauche de la toile
-        Button btnLeft = new Button("Left");
-        btnLeft.setPadding(new Insets(5, 5, 5, 5));
-        root.setLeft(btnLeft);
-        BorderPane.setMargin(btnLeft, new Insets(10, 10, 10, 10));
-
-        //Mise en place de la liste de joueurs
-        String joueur = "";
-        for(int i = 1; i <= Menu.nbplayer; i++) {
-            joueur = joueur + "Joueur " + i + "\n";
-        }
-
-        Label label = new Label("Joueurs : \n " + joueur);
-        root.setLeft(label);
-
-        BorderPane.setMargin(label, new Insets(10, 10, 10, 10));
-
-        //Centre de la "toile": plateau de jeu
+//--------------------------------PLATEAU DE JEU ------------------------------------------------
         GridPane grid = GridPaneWithLines.createGrid(switches);
         StackPane panelPane = new StackPane(grid);
         root.setCenter(panelPane);
         BorderPane.setAlignment(panelPane, Pos.BOTTOM_CENTER);
 
-        //----------------------- Partie droite de la "toile"
+//--------------------------------RIGHT - RANDOM TOKEN------------------------------------------------
         VBox rightBorderPane = new VBox();
 
-        //Création du token aléatoire de destination
+        //Création du token aléatoire où il faut se rendre
         File dir = new File(this.getClass().getResource("Token/").toExternalForm().replaceAll("file:/","")); //Récupération du dossier avec la liste
         File[] files = dir.listFiles();//Création de la liste présente
-        int randomIndex = (int)(Math.random() * files.length); //Random token selectionné
+        int nbToken = files.length;
+        int randomIndex = (int)(Math.random() * nbToken); //Random token selectionné
 
         String token = files[randomIndex].getAbsolutePath(); //Choix de token
         Image img = new Image(token);
@@ -128,7 +121,44 @@ public class Interface {
 
         root.setRight(rightBorderPane);
 
-        //----------------------- Partie basse de la "toile"
+//--------------------------------LEFT - NB PLAYERS + TURNS WIN------------------------------------------------
+
+        //Mise en place de la liste de joueurs
+
+        VBox leftBorderPane = new VBox();
+
+        for(int i = 1; i <= Menu.nbplayer; i++) {
+            Dictionary<String,Integer> nbVictoires = new Hashtable<String,Integer>();
+            final int[] count = {0};
+            nbVictoires.put("Joueur "+i, count[0]);
+
+            Button btn = new Button("Joueur "+ i + " : " + nbVictoires.get("Joueur "+i));
+            Color playerColor = Color.color(Math.random(), Math.random(), Math.random());
+            btn.setTextFill(playerColor);
+
+            int finalI = i;
+            btn.setOnAction(event -> {
+                count[0] = count[0] +1;
+                nbVictoires.put("Joueur "+ finalI, count[0]);
+                btn.setText("Joueur "+ finalI + " : " + nbVictoires.get("Joueur "+ finalI));
+                if(usedToken < nbToken){
+                    turnWin.play();
+                }else{
+                    victory.play();
+                }
+
+            });
+
+            btn.setPadding(new Insets(5, 5, 5, 5));
+            leftBorderPane.setMargin(btn, new Insets(10, 10, 10, 10));
+
+
+            leftBorderPane.getChildren().add(btn);
+        }
+
+        root.setLeft(leftBorderPane);
+
+//--------------------------------BOTTOM  - MOVES LIST ------------------------------------------------
         HBox bottomBorderPane = new HBox();
 
         List<String> movesList = new ArrayList<String>();
@@ -140,15 +170,15 @@ public class Interface {
 
         root.setBottom(bottomBorderPane);
 
-        //Création de la scène
-        Scene scene = new Scene(root, 745, 690);
+//--------------------------------Creation fenetre ------------------------------------------------
+        Scene scene = new Scene(root, 760, 660);
         scene.getStylesheets().add(getClass().getResource("grid-with-borders.css").toString());
         //Création de la fenêtre
         stage.setScene(scene);
         stage.show();
 
     }
-    //Barre de progression
+    //--------------------------------Barre de progression ------------------------------------------------
     public void launchProgressBar(){
         btnTop.setText("Timer en cours :)");
         //Musique d'attente
