@@ -11,7 +11,7 @@ import javafx.scene.shape.Circle;
 public class GridPaneWithLines {
     //Création des cellules
     private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y, String letter) {
-        String selectImage = letter + y;
+        String cellule = letter + (x+1);
         //Création de la cellulle
         StackPane cell = new StackPane();
 
@@ -23,7 +23,7 @@ public class GridPaneWithLines {
         //Renvoie le nom de la cellule lorsque l'on clique dessus
         cell.setOnMouseClicked(e -> {
             cellSwitch.set(!cellSwitch.get());
-            System.out.println(selectImage);
+            System.out.println(cellule);
         });
         //Créer un cercle lorsque l'on clique sur cette cellule
         Circle circle = new Circle(10, Color.CORNFLOWERBLUE);
