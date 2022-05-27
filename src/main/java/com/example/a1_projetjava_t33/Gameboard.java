@@ -7,8 +7,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-//Plateau de jeu
-public class GridPaneWithLines {
+//--------------------------------Plateau de jeu ------------------------------------------------
+public class Gameboard {
     //Création des cellules
     private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y, String letter) {
         String cellule = letter + (x+1);
@@ -35,7 +35,7 @@ public class GridPaneWithLines {
         return cell;
     }
 
-    //Création de la grille de jeu
+    //--------------------------------Création de la grille de jeu ------------------------------------------------
     static GridPane createGrid(BooleanProperty[][] switches) {
 
         //Initialisation de la taille du plateau
@@ -129,7 +129,7 @@ public class GridPaneWithLines {
                         break;
                 }
                 //On récupère l'adresse vers l'image associée à l'emplacement sur laquelle on se place
-                sourceImage[x][y] =  GridPaneWithLines.class.getResource("Cases/" + letter + String.format("%d",x+1) +".jpg").toString();
+                sourceImage[x][y] =  Gameboard.class.getResource("Cases/" + letter + String.format("%d",x+1) +".jpg").toString();
                 //On ajoute la cellule sur l'emplacement où on se trouve
                 grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);
 
@@ -138,7 +138,7 @@ public class GridPaneWithLines {
             }
         }
 
-        Image robot1 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-verte.png").toString());
+        Image robot1 = new Image(Gameboard.class.getResource("Images indiv/Force-verte.png").toString());
         ImageView imgView1 = new ImageView(robot1);
         imgView1.setImage(robot1);
         imgView1.setFitWidth(36);
@@ -149,7 +149,7 @@ public class GridPaneWithLines {
         grid.setConstraints(imgView1, 2, 2);
         grid.getChildren().add(imgView1);
 
-        Image robot2 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-rouge.png").toString());
+        Image robot2 = new Image(Gameboard.class.getResource("Images indiv/Force-rouge.png").toString());
         ImageView imgView2 = new ImageView(robot2);
         imgView2.setImage(robot2);
         imgView2.setFitWidth(36);
@@ -157,7 +157,7 @@ public class GridPaneWithLines {
         grid.setConstraints(imgView2, 12, 3);
         grid.getChildren().add(imgView2);
 
-        Image robot3 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-jaune.png").toString());
+        Image robot3 = new Image(Gameboard.class.getResource("Images indiv/Force-jaune.png").toString());
         ImageView imgView3 = new ImageView(robot3);
         imgView3.setImage(robot3);
         imgView3.setFitWidth(36);
@@ -165,7 +165,7 @@ public class GridPaneWithLines {
         grid.setConstraints(imgView3, 13, 14);
         grid.getChildren().add(imgView3);
 
-        Image robot4 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-bleue.png").toString());
+        Image robot4 = new Image(Gameboard.class.getResource("Images indiv/Force-bleue.png").toString());
         ImageView imgView4 = new ImageView(robot4);
         imgView4.setImage(robot4);
         imgView4.setFitWidth(36);
@@ -177,6 +177,8 @@ public class GridPaneWithLines {
         grid.getStyleClass().add("grid");
         return grid;
     }
+    //--------------------------------Mouvements des robots ------------------------------------------------
+
     public static void mvtrobot(GridPane grid, ImageView imgView1) {
         imgView1.setFitWidth(38);
         imgView1.setFitHeight(38);

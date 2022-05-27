@@ -27,7 +27,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Interface {
     ProgressBar bar;
     Button btnTop;
-    AudioClip sound;
 
     //--------------------------------Lancement fenetre ------------------------------------------------
     public void start(Stage stage) throws IOException {
@@ -96,7 +95,7 @@ public class Interface {
         BorderPane.setMargin(bar, new Insets(10, 10, 10, 10));
 
 //--------------------------------PLATEAU DE JEU ------------------------------------------------
-        GridPane grid = GridPaneWithLines.createGrid(switches);
+        GridPane grid = Gameboard.createGrid(switches);
         StackPane panelPane = new StackPane(grid);
         root.setCenter(panelPane);
         BorderPane.setAlignment(panelPane, Pos.BOTTOM_CENTER);
@@ -108,13 +107,13 @@ public class Interface {
         File dir = new File(this.getClass().getResource("Token/").toExternalForm().replaceAll("file:/","")); //Récupération du dossier avec la liste
         File[] files = dir.listFiles();//Création de la liste présente
         int nbToken = files.length;
-
-
         //Initialisation du champ image pour le token
         Image img = new Image(this.getClass().getResource("white.png").toExternalForm());
         ImageView imgView = new ImageView(img);
+        //Initialisation d'une blacklist: tokens déjà utilisés
+        List<Integer> blacklist = new ArrayList();
+        randomToken(nbToken, files, imgView, blacklist);
 
-        rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
 
         //Boutons de direction
         Button btnUp = new Button("^");
@@ -122,17 +121,10 @@ public class Interface {
         Button btnLeft = new Button("<");
         Button btnRight = new Button(">");
 
+        //Ajout à la fenêtre
+        rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
         rightBorderPane.getChildren().addAll(btnUp, btnDown,btnLeft,btnRight);
-
-        //Initialisation d'une blacklist: tokens déjà utilisés
-        List<Integer> blacklist = new ArrayList();
-        randomToken(nbToken, files, imgView, blacklist);
         root.setRight(rightBorderPane);
-
-
-
-
-
 
 //--------------------------------LEFT - NB PLAYERS + TURNS WIN------------------------------------------------
 
