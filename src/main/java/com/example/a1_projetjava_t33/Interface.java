@@ -115,8 +115,10 @@ public class Interface {
         ImageView imgView = new ImageView(img);
 
         rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
-        int randomIndex = 0;
-        randomToken(nbToken, files, imgView, randomIndex);
+
+        //Initialisation d'une blacklist: tokens déjà utilisés
+        List<Integer> blacklist = new ArrayList();
+        randomToken(nbToken, files, imgView, blacklist);
         root.setRight(rightBorderPane);
 
 
@@ -149,7 +151,7 @@ public class Interface {
                 //S'il reste des token la partie continue
                 if(usedToken.get() < nbToken){
                     turnWin.play();
-                    randomToken(nbToken, files, imgView, randomIndex);
+                    randomToken(nbToken, files, imgView, blacklist);
                     usedToken.set(usedToken.get() + 1);
                 //Sinon on fait le décompte des points et affiche le vainqueur
                 }else{
@@ -216,7 +218,7 @@ public class Interface {
         //Evolution de la barre de progression
         Task task = new Task<Void>() {
             @Override public Void call() {
-                final int max = 1000000000;
+                final int max = 100000000;
                 for (int i = 1; i <= max; i++) {
                     updateProgress(i, max);
                 }
@@ -237,24 +239,13 @@ public class Interface {
     }
 
     //--------------------------------Mise à jour des tokens ------------------------------------------------
-    public static int randomToken(int nbToken, File[] files, ImageView imgView, int randomIndex) {
-        //Initialisation d'une blacklist: tokens déjà utilisés
-        List<Integer> blacklist = new ArrayList();
+    public static List<Integer> randomToken(int nbToken, File[] files, ImageView imgView, List<Integer> blacklist) {
+
+        //Token aléatoire
+        int randomIndex = (int) (Math.random() * nbToken);
+
+        //Ajout à la blacklist pour ne pas le réutiliser: échec d'implémentation
         blacklist.add(randomIndex);
-
-
-        //Vérification si le random sorti correspond à un token restant
-        boolean wrongIndex = true;
-        while (wrongIndex) {
-            randomIndex = (int) (Math.random() * nbToken);
-            for(int index : blacklist){
-                if(index == randomIndex){
-                    wrongIndex = true;
-                }else{
-                    wrongIndex = false;
-                }
-            }
-        }
 
         //Récupération du lien vers le token
         String token = files[randomIndex].getAbsolutePath();
@@ -266,7 +257,7 @@ public class Interface {
         imgView.setFitWidth(50);
         imgView.setFitHeight(50);
 
-        return randomIndex;
+        return blacklist;
     }
 
 }

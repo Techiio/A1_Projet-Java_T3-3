@@ -133,6 +133,8 @@ public class GridPaneWithLines {
                 //On ajoute la cellule sur l'emplacement où on se trouve
                 grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);
 
+
+
             }
         }
         //Récupération d'un style de grille
