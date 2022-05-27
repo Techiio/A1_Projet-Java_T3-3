@@ -13,12 +13,7 @@ import java.io.IOException;
 
 //Menu du jeu
 public class Menu {
-    Game game;
     public static Integer nbplayer;
-
-    public Menu(Game game) {
-        this.game = game;
-    }
 
     public Integer start(Stage stage) throws IOException {
         nbplayer = 1;
@@ -46,7 +41,7 @@ public class Menu {
         erreur.setVolume(0.5);
 
 //--------------------------------Image de fond ------------------------------------------------
-        Image backimg = new Image("https://tetu.com/wp-content/uploads/2021/09/powerrangers-1280x720.jpeg");
+        Image backimg = new Image(getClass().getResource("Power rangers/Menu.jpeg").toString());
         BackgroundImage bImg = new BackgroundImage(backimg,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,

@@ -138,7 +138,7 @@ public class Gameboard {
             }
         }
 
-        Image robot1 = new Image(Gameboard.class.getResource("Images indiv/Force-verte.png").toString());
+        Image robot1 = new Image(Gameboard.class.getResource("Power rangers/Force-verte.png").toString());
         ImageView imgView1 = new ImageView(robot1);
         imgView1.setImage(robot1);
         imgView1.setFitWidth(36);
@@ -149,7 +149,7 @@ public class Gameboard {
         grid.setConstraints(imgView1, 2, 2);
         grid.getChildren().add(imgView1);
 
-        Image robot2 = new Image(Gameboard.class.getResource("Images indiv/Force-rouge.png").toString());
+        Image robot2 = new Image(Gameboard.class.getResource("Power rangers/Force-rouge.png").toString());
         ImageView imgView2 = new ImageView(robot2);
         imgView2.setImage(robot2);
         imgView2.setFitWidth(36);
@@ -157,7 +157,7 @@ public class Gameboard {
         grid.setConstraints(imgView2, 12, 3);
         grid.getChildren().add(imgView2);
 
-        Image robot3 = new Image(Gameboard.class.getResource("Images indiv/Force-jaune.png").toString());
+        Image robot3 = new Image(Gameboard.class.getResource("Power rangers/Force-jaune.png").toString());
         ImageView imgView3 = new ImageView(robot3);
         imgView3.setImage(robot3);
         imgView3.setFitWidth(36);
@@ -165,7 +165,7 @@ public class Gameboard {
         grid.setConstraints(imgView3, 13, 14);
         grid.getChildren().add(imgView3);
 
-        Image robot4 = new Image(Gameboard.class.getResource("Images indiv/Force-bleue.png").toString());
+        Image robot4 = new Image(Gameboard.class.getResource("Power rangers/Force-bleue.png").toString());
         ImageView imgView4 = new ImageView(robot4);
         imgView4.setImage(robot4);
         imgView4.setFitWidth(36);

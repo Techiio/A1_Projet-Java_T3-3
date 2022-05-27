@@ -14,10 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Lancement du jeu
-        Game game = new Game();
-        game.playGame();
-        //Lancement de l'interface
-        Menu javaFx = new Menu(game);
+        Menu javaFx = new Menu();
         javaFx.start(stage);
 
     }

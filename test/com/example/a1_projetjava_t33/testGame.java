@@ -9,11 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 class testGame {
-    @Test
-    public void testPlay() throws IOException {
-        Game game = new Game();
-        assertEquals(1,game.playGame());
-    }
 
     @Test
         public void testLambda() throws IOException {
