@@ -116,10 +116,21 @@ public class Interface {
 
         rightBorderPane.getChildren().addAll(new Label("Destination : "), imgView );
 
+        //Boutons de direction
+        Button btnUp = new Button("^");
+        Button btnDown = new Button("v");
+        Button btnLeft = new Button("<");
+        Button btnRight = new Button(">");
+
+        rightBorderPane.getChildren().addAll(btnUp, btnDown,btnLeft,btnRight);
+
         //Initialisation d'une blacklist: tokens déjà utilisés
         List<Integer> blacklist = new ArrayList();
         randomToken(nbToken, files, imgView, blacklist);
         root.setRight(rightBorderPane);
+
+
+
 
 
 

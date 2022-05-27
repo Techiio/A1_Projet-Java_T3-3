@@ -137,9 +137,54 @@ public class GridPaneWithLines {
 
             }
         }
+
+        Image robot1 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-verte.png").toString());
+        ImageView imgView1 = new ImageView(robot1);
+        imgView1.setImage(robot1);
+        imgView1.setFitWidth(36);
+        imgView1.setFitHeight(36);
+        imgView1.setOnMouseClicked(e -> {
+            mvtrobot(grid , imgView1);
+        });
+        grid.setConstraints(imgView1, 2, 2);
+        grid.getChildren().add(imgView1);
+
+        Image robot2 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-rouge.png").toString());
+        ImageView imgView2 = new ImageView(robot2);
+        imgView2.setImage(robot2);
+        imgView2.setFitWidth(36);
+        imgView2.setFitHeight(36);
+        grid.setConstraints(imgView2, 12, 3);
+        grid.getChildren().add(imgView2);
+
+        Image robot3 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-jaune.png").toString());
+        ImageView imgView3 = new ImageView(robot3);
+        imgView3.setImage(robot3);
+        imgView3.setFitWidth(36);
+        imgView3.setFitHeight(36);
+        grid.setConstraints(imgView3, 13, 14);
+        grid.getChildren().add(imgView3);
+
+        Image robot4 = new Image(GridPaneWithLines.class.getResource("Images indiv/Force-bleue.png").toString());
+        ImageView imgView4 = new ImageView(robot4);
+        imgView4.setImage(robot4);
+        imgView4.setFitWidth(36);
+        imgView4.setFitHeight(36);
+        grid.setConstraints(imgView4, 5, 8);
+        grid.getChildren().add(imgView4);
+
         //Récupération d'un style de grille
         grid.getStyleClass().add("grid");
         return grid;
+    }
+    public static void mvtrobot(GridPane grid, ImageView imgView1) {
+        imgView1.setFitWidth(38);
+        imgView1.setFitHeight(38);
+        grid.setOnMouseClicked(e -> {
+            grid.getChildren().remove(imgView1);
+            grid.setConstraints(imgView1, 2, 10);
+            grid.getChildren().add(imgView1);
+        });
     }
 
 }
