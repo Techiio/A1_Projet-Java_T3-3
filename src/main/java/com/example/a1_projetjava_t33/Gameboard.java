@@ -140,7 +140,7 @@ public class Gameboard {
 
             }
         }
-
+//Apparition des robots dans la grille de jeu avec leurs coordonnées (les autres robots ne bougent pas donc sont déclarés plus bas)
         Image robot1 = new Image(Gameboard.class.getResource("Power rangers/Force-verte.png").toString());
         ImageView imgView1 = new ImageView(robot1);
         imgView1.setImage(robot1);
@@ -149,7 +149,12 @@ public class Gameboard {
         AtomicInteger posx = new AtomicInteger(2);
         AtomicInteger posy = new AtomicInteger(2);
         grid.setConstraints(imgView1, 2, 2);
+//Activation du déplacement du robot quand on lui clique dessus
         imgView1.setOnMouseClicked(e -> {
+//définition des contraintes de déplacement pour faire apparaitre ou non les boutons directionnels en fonction de la position du robot sur le plateau
+// ex: ne pas faire apparaitre le bouton de déplacement vers le haut si le robot se situe déjà sur la partie haute du plateau
+            
+//bord gauche            
             if (posx.get() == 0 && posy.get() != 0 && posy.get() != 15) {
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() - 1);
@@ -178,6 +183,7 @@ public class Gameboard {
                     grid.getChildren().remove(down);
                     grid.getChildren().remove(right);
                 });
+//Coin Nord Ouest                 
             } else if (posx.get() == 0 && posy.get()==0) {
                 Button down = new Button("v");
                 grid.add(down, posx.get(), posy.get() + 1);
@@ -195,6 +201,7 @@ public class Gameboard {
                     grid.getChildren().remove(down);
                     grid.getChildren().remove(right);
                 });
+// Coin Nord Est                
             } else if ( posx.get() == 0 && posy.get() == 15) {
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() - 1);
@@ -212,6 +219,7 @@ public class Gameboard {
                     grid.getChildren().remove(up);
                     grid.getChildren().remove(right);
                 });
+// Coin Sud Ouest                
             } else if (posx.get() == 15 && posy.get() == 0) {
                 Button down = new Button("v");
                 grid.add(down, posx.get(), posy.get() + 1);
@@ -229,6 +237,7 @@ public class Gameboard {
                     grid.getChildren().remove(down);
                     grid.getChildren().remove(left);
                 });
+ // Coin Sud Est               
             } else if (posx.get() == 15 && posy.get() == 15) {
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() - 1);
@@ -246,7 +255,7 @@ public class Gameboard {
                     grid.getChildren().remove(up);
                     grid.getChildren().remove(left);
                 });
-
+// Bord Droit
             } else if (posx.get() == 15 && posy.get() != 0 && posy.get() != 15) {
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() - 1);
@@ -275,7 +284,7 @@ public class Gameboard {
                     grid.getChildren().remove(down);
                     grid.getChildren().remove(left);
                 });
-
+//Bord Haut
             }else if (posy.get() == 0 && posx.get() != 0 && posx.get() != 15){
                     Button down = new Button("v");
                     grid.add(down, posx.get(), posy.get() +1);
@@ -305,7 +314,7 @@ public class Gameboard {
                         grid.getChildren().remove(right);
                     });
 
-
+//Bord Bas
 
             } else if(posy.get() == 15 && posx.get() != 0 && posx.get() != 15){
                 Button up = new Button("^");
@@ -335,7 +344,7 @@ public class Gameboard {
                     grid.getChildren().remove(left);
                     grid.getChildren().remove(right);
                 });
-
+//Centre du plateau
             } else{
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() -1);
@@ -385,7 +394,7 @@ public class Gameboard {
 
 
         grid.getChildren().add(imgView1);
-
+//Apparition des autres robots non déplacable 
         Image robot2 = new Image(Gameboard.class.getResource("Power rangers/Force-rouge.png").toString());
         ImageView imgView2 = new ImageView(robot2);
         imgView2.setImage(robot2);
