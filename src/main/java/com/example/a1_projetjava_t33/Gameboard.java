@@ -1,17 +1,21 @@
-package com.example.a1_projetjava_t33;
+package com.example.rickoche;
+
 
 import javafx.beans.property.BooleanProperty;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 //--------------------------------Plateau de jeu ------------------------------------------------
 public class Gameboard {
     //Création des cellules
     private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y, String letter) {
-        String cellule = letter + (x+1);
+        String cellule = letter + (x + 1);
         //Création de la cellulle
         StackPane cell = new StackPane();
 
@@ -63,7 +67,7 @@ public class Gameboard {
                 String[][] sourceImage = new String[16][16];
                 String letter = "";
                 //Remplacement du numéro de la ligne par un numéro
-                switch(y){
+                switch (y) {
                     case 15:
                         letter = "A";
                         break;
@@ -129,10 +133,9 @@ public class Gameboard {
                         break;
                 }
                 //On récupère l'adresse vers l'image associée à l'emplacement sur laquelle on se place
-                sourceImage[x][y] =  Gameboard.class.getResource("Cases/" + letter + String.format("%d",x+1) +".jpg").toString();
+                sourceImage[x][y] = Gameboard.class.getResource("Cases/" + letter + String.format("%d", x + 1) + ".jpg").toString();
                 //On ajoute la cellule sur l'emplacement où on se trouve
                 grid.add(createCell(switches[x][y], sourceImage, x, y, letter), x, y);
-
 
 
             }
@@ -143,10 +146,244 @@ public class Gameboard {
         imgView1.setImage(robot1);
         imgView1.setFitWidth(36);
         imgView1.setFitHeight(36);
-        imgView1.setOnMouseClicked(e -> {
-            mvtrobot(grid , imgView1);
-        });
+        AtomicInteger posx = new AtomicInteger(2);
+        AtomicInteger posy = new AtomicInteger(2);
         grid.setConstraints(imgView1, 2, 2);
+        imgView1.setOnMouseClicked(e -> {
+            if (posx.get() == 0 && posy.get() != 0 && posy.get() != 15) {
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() - 1);
+                Button down = new Button("v");
+                grid.add(down, posx.get(), posy.get() + 1);
+                Button right = new Button(">");
+                grid.add(right, posx.get() + 1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(right);
+                });
+                down.setOnAction(event -> {
+                    moveDown(grid, imgView1, posx.get(), posy.get());
+                    posy.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(right);
+                });
+                right.setOnAction(event -> {
+                    moveRight(grid, imgView1, posx.get(), posy.get());
+                    posx.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(right);
+                });
+            } else if (posx.get() == 0 && posy.get()==0) {
+                Button down = new Button("v");
+                grid.add(down, posx.get(), posy.get() + 1);
+                Button right = new Button(">");
+                grid.add(right, posx.get() + 1, posy.get());
+                down.setOnAction(event -> {
+                    moveDown(grid, imgView1, posx.get(), posy.get());
+                    posy.set(15);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(right);
+                });
+                right.setOnAction(event -> {
+                    moveRight(grid, imgView1, posx.get(), posy.get());
+                    posx.set(15);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(right);
+                });
+            } else if ( posx.get() == 0 && posy.get() == 15) {
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() - 1);
+                Button right = new Button(">");
+                grid.add(right, posx.get() + 1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(right);
+                });
+                right.setOnAction(event -> {
+                    moveRight(grid, imgView1, posx.get(), posy.get());
+                    posx.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(right);
+                });
+            } else if (posx.get() == 15 && posy.get() == 0) {
+                Button down = new Button("v");
+                grid.add(down, posx.get(), posy.get() + 1);
+                Button left = new Button("<");
+                grid.add(left, posx.get() - 1, posy.get());
+                down.setOnAction(event -> {
+                    moveDown(grid, imgView1, posx.get(), posy.get());
+                    posy.set(15);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                });
+                left.setOnAction(event -> {
+                    moveLeft(grid, imgView1, posx.get(), posy.get());
+                    posx.set(0);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                });
+            } else if (posx.get() == 15 && posy.get() == 15) {
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() - 1);
+                Button left = new Button("<");
+                grid.add(left, posx.get() - 1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(left);
+                });
+                left.setOnAction(event -> {
+                    moveLeft(grid, imgView1, posx.get(), posy.get());
+                    posx.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(left);
+                });
+
+            } else if (posx.get() == 15 && posy.get() != 0 && posy.get() != 15) {
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() - 1);
+                Button down = new Button("v");
+                grid.add(down, posx.get(), posy.get() + 1);
+                Button left = new Button("<");
+                grid.add(left, posx.get() - 1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                });
+                down.setOnAction(event -> {
+                    moveDown(grid, imgView1, posx.get(), posy.get());
+                    posy.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                });
+                left.setOnAction(event -> {
+                    moveLeft(grid, imgView1, posx.get(), posy.get());
+                    posx.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                });
+
+            }else if (posy.get() == 0 && posx.get() != 0 && posx.get() != 15){
+                    Button down = new Button("v");
+                    grid.add(down, posx.get(), posy.get() +1);
+                    Button left = new Button("<");
+                    grid.add(left, posx.get() -1, posy.get());
+                    Button right = new Button(">");
+                    grid.add(right, posx.get() +1, posy.get());
+                    down.setOnAction(event -> {
+                        moveDown(grid, imgView1, posx.get(), posy.get());
+                        posy.set(15);
+                        grid.getChildren().remove(down);
+                        grid.getChildren().remove(left);
+                        grid.getChildren().remove(right);
+                    });
+                    left.setOnAction(event -> {
+                        moveLeft(grid, imgView1, posx.get(), posy.get());
+                        posx.set(0);
+                        grid.getChildren().remove(down);
+                        grid.getChildren().remove(left);
+                        grid.getChildren().remove(right);
+                    });
+                    right.setOnAction(event -> {
+                        moveRight(grid, imgView1, posx.get(), posy.get());
+                        posx.set(15);
+                        grid.getChildren().remove(down);
+                        grid.getChildren().remove(left);
+                        grid.getChildren().remove(right);
+                    });
+
+
+
+            } else if(posy.get() == 15 && posx.get() != 0 && posx.get() != 15){
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() -1);
+                Button left = new Button("<");
+                grid.add(left, posx.get() -1, posy.get());
+                Button right = new Button(">");
+                grid.add(right, posx.get() +1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+                left.setOnAction(event -> {
+                    moveLeft(grid, imgView1, posx.get(), posy.get());
+                    posx.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+                right.setOnAction(event -> {
+                    moveRight(grid, imgView1, posx.get(), posy.get());
+                    posx.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+
+            } else{
+                Button up = new Button("^");
+                grid.add(up, posx.get(), posy.get() -1);
+                Button down = new Button("v");
+                grid.add(down, posx.get(), posy.get() +1);
+                Button left = new Button("<");
+                grid.add(left, posx.get() -1, posy.get());
+                Button right = new Button(">");
+                grid.add(right, posx.get() +1, posy.get());
+                up.setOnAction(event -> {
+                    moveUp(grid, imgView1, posx.get(), posy.get());
+                    posy.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+                down.setOnAction(event -> {
+                    moveDown(grid, imgView1, posx.get(), posy.get());
+                    posy.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+                left.setOnAction(event -> {
+                    moveLeft(grid, imgView1, posx.get(), posy.get());
+                    posx.set(0);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+                right.setOnAction(event -> {
+                    moveRight(grid, imgView1, posx.get(), posy.get());
+                    posx.set(15);
+                    grid.getChildren().remove(up);
+                    grid.getChildren().remove(down);
+                    grid.getChildren().remove(left);
+                    grid.getChildren().remove(right);
+                });
+
+            }
+
+        });
+
+
+
         grid.getChildren().add(imgView1);
 
         Image robot2 = new Image(Gameboard.class.getResource("Power rangers/Force-rouge.png").toString());
@@ -177,16 +414,46 @@ public class Gameboard {
         grid.getStyleClass().add("grid");
         return grid;
     }
+
     //--------------------------------Mouvements des robots ------------------------------------------------
 
-    public static void mvtrobot(GridPane grid, ImageView imgView1) {
-        imgView1.setFitWidth(38);
-        imgView1.setFitHeight(38);
-        grid.setOnMouseClicked(e -> {
-            grid.getChildren().remove(imgView1);
-            grid.setConstraints(imgView1, 2, 10);
-            grid.getChildren().add(imgView1);
-        });
+    public static int moveUp(GridPane grid, ImageView img, int x, int y){
+        grid.getChildren().remove(img);
+        int posx = x;
+        int posy = 0;
+        grid.setConstraints(img, posx, posy);
+        grid.getChildren().add(img);
+        return posy;
+
+    }
+    public static int moveDown(GridPane grid, ImageView img, int x, int y){
+        grid.getChildren().remove(img);
+        int posx = x;
+        int posy = 15;
+        grid.setConstraints(img, posx, posy);
+        grid.getChildren().add(img);
+        return posy;
+
+
+    }
+    public static int moveLeft(GridPane grid, ImageView img, int x, int y){
+        grid.getChildren().remove(img);
+        int posx = 0;
+        int posy = y;
+        grid.setConstraints(img, posx, posy);
+        grid.getChildren().add(img);
+        return posx;
+
+    }
+    public static int moveRight(GridPane grid, ImageView img, int x, int y){
+        grid.getChildren().remove(img);
+        int posx = 15;
+        int posy = y;
+        grid.setConstraints(img, posx, posy);
+        grid.getChildren().add(img);
+        return posx;
+
     }
 
 }
+
