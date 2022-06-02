@@ -1,4 +1,4 @@
-package com.example.rickoche;
+package com.example.a1_projetjava_t33;
 
 
 import javafx.beans.property.BooleanProperty;
