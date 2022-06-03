@@ -32,7 +32,7 @@
 ## Fenêtre de jeu
 ![Fenêtre-de-jeu.png](Readme-images/Fenêtre-de-jeu.png)
 ### 1 : Plateau de jeu
-![img.png](Readme-images/Gameboard.png)
+![Gameboard.png](Readme-images/Gameboard.png)
 C'est sur ce plateau que se déroule les fondamentaux du jeu Fruit Rangers. Le but ici est d'amener votre robot de la couleur du token de destination vers le fruit indiqué. \
 Ici, cliquez sur un robot (comme le vert) afin de pouvoir le déplacer à travers les quatres coins du tableau (littéralement). 
 
@@ -61,3 +61,5 @@ Dans cet encadré se situe la liste des joueurs. Lorsque l'un d'eux remporte la 
 Lorsque toutes les manches auront été réalisées, soit 17 manches au total, alors s'affichera le nom du grand vainqueur à la place du bouton prévu pour le timer.
 
 ## Diagramme UML ##
+![UML.png](Readme-images/UML%20Diagram.png)
+Vous pourrez retrouver le diagramme UML à la source du projet au format UML ainsi qu'au format PNG dans le dossier Readme-images.
