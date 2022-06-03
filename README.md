@@ -32,8 +32,9 @@
 ## Fenêtre de jeu
 ![Fenêtre-de-jeu.png](Readme-images/Fenêtre-de-jeu.png)
 ### 1 : Plateau de jeu
-
-C'est sur ce plateau que se déroule les fondamentaux du jeu Fruit Rangers. Le but ici est d'amener votre robot de la couleur du token de destination vers le fruit indiqué. 
+![img.png](Readme-images/Gameboard.png)
+C'est sur ce plateau que se déroule les fondamentaux du jeu Fruit Rangers. Le but ici est d'amener votre robot de la couleur du token de destination vers le fruit indiqué. \
+Ici, cliquez sur un robot (comme le vert) afin de pouvoir le déplacer à travers les quatres coins du tableau (littéralement). 
 
 ### 2 : Timer de réflexion
 ![Timer.png](Readme-images/Timer.png)
@@ -46,7 +47,8 @@ Token de destination où le robot associé à la couleur doit se rendre. Le toke
 
 ### 4 : Chemin parcouru
 ![Chemin-parcouru.png](Readme-images/Chemin-parcouru.png)
-Ici s'affiche le chemin parcouru par le joueur afin de ne rien manquer de son parcours !
+Ici s'affiche le chemin parcouru par le joueur afin de ne rien manquer de son parcours ! \
+Fonctionnalité non implémentée
 
 ### 5 : Liste des joueurs et points
 ![Players.png](Readme-images/Players.png)
@@ -57,3 +59,5 @@ Dans cet encadré se situe la liste des joueurs. Lorsque l'un d'eux remporte la 
 ![Victory.png](Readme-images/Victory.png)
 
 Lorsque toutes les manches auront été réalisées, soit 17 manches au total, alors s'affichera le nom du grand vainqueur à la place du bouton prévu pour le timer.
+
+## Diagramme UML ##

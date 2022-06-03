@@ -2,6 +2,7 @@ package com.example.a1_projetjava_t33;
 
 
 import javafx.beans.property.BooleanProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,9 +12,19 @@ import javafx.scene.shape.Circle;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//--------------------------------Plateau de jeu ------------------------------------------------
+//--------------------------------CENTER - PLATEAU DE JEU ------------------------------------------------
 public class Gameboard {
-    //Création des cellules
+
+    //--------------------------------Création de la toile du plateau ------------------------------------------------
+    public static void GameboardPane(BorderPane root, BooleanProperty[][] switches){
+        GridPane grid = Gameboard.createGrid(switches);
+        StackPane panelPane = new StackPane(grid);
+        root.setCenter(panelPane);
+        BorderPane.setAlignment(panelPane, Pos.BOTTOM_CENTER);
+    }
+
+
+    //--------------------------------Création des cellules ------------------------------------------------
     private static StackPane createCell(BooleanProperty cellSwitch, String[][] sourceImage, int x, int y, String letter) {
         String cellule = letter + (x + 1);
         //Création de la cellulle
@@ -29,10 +40,6 @@ public class Gameboard {
             cellSwitch.set(!cellSwitch.get());
             System.out.println(cellule);
         });
-        //Créer un cercle lorsque l'on clique sur cette cellule
-        Circle circle = new Circle(10, Color.CORNFLOWERBLUE);
-        circle.visibleProperty().bind(cellSwitch);
-        cell.getChildren().add(circle);
 
         //Récupération d'un style de cellule
         cell.getStyleClass().add("cell");
@@ -154,7 +161,7 @@ public class Gameboard {
 //définition des contraintes de déplacement pour faire apparaitre ou non les boutons directionnels en fonction de la position du robot sur le plateau
 // ex: ne pas faire apparaitre le bouton de déplacement vers le haut si le robot se situe déjà sur la partie haute du plateau
             
-//bord gauche            
+//Bord gauche
             if (posx.get() == 0 && posy.get() != 0 && posy.get() != 15) {
                 Button up = new Button("^");
                 grid.add(up, posx.get(), posy.get() - 1);
@@ -390,11 +397,9 @@ public class Gameboard {
             }
 
         });
-
-
-
         grid.getChildren().add(imgView1);
-//Apparition des autres robots non déplacable 
+
+//Apparition des autres robots non déplaçable
         Image robot2 = new Image(Gameboard.class.getResource("Power rangers/Force-rouge.png").toString());
         ImageView imgView2 = new ImageView(robot2);
         imgView2.setImage(robot2);

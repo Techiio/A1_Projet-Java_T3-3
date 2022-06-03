@@ -24,21 +24,6 @@ public class Menu {
         Pane root = new Pane();
         root.setPrefSize(760, 660);
 
-        //Musique du menu
-        String musicFile = "theme_song.mp3";
-        AudioClip sound = new AudioClip(this.getClass().getResource("Sounds/"+ musicFile).toExternalForm());
-        sound.setVolume(0.1);
-        sound.play();
-
-        //Son lors d'un clic
-        String soundFile = "clic.mp3";
-        AudioClip clic = new AudioClip(this.getClass().getResource("Sounds/"+ soundFile).toExternalForm());
-        clic.setVolume(0.5);
-
-        //Son lors d'une erreur
-        String errorFile = "error.mp3";
-        AudioClip erreur = new AudioClip(this.getClass().getResource("Sounds/"+ errorFile).toExternalForm());
-        erreur.setVolume(0.5);
 
 //--------------------------------Image de fond ------------------------------------------------
         Image backimg = new Image(getClass().getResource("Power rangers/Menu.jpeg").toString());
@@ -52,12 +37,15 @@ public class Menu {
 
         root.getChildren().addAll();
 //--------------------------------Bouton JOUER ------------------------------------------------
+        Sounds.PlaySound(Sounds.ThemeSound());
+
+
         Button btnplay = new Button("Jouer");
         btnplay.setOnAction(event -> {
                     Interface jeu = new Interface();
             try {
-                clic.play();
-                sound.stop();
+                Sounds.PlaySound(Sounds.ClicSound());
+                Sounds.StopSound(Sounds.ThemeSound());
                 jeu.start(stage);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -93,11 +81,11 @@ public class Menu {
         //Diminution du nombre de joueurs
         btnleft.setOnAction(event -> {
             if(nbplayer > 1) {
-                clic.play();
+                Sounds.PlaySound(Sounds.ClicSound());
                 nbplayer = nbplayer - 1;
                 center.setText(nbplayer.toString());
             }else{
-                erreur.play();
+                Sounds.PlaySound(Sounds.ErrorSound());
             }
         });
 
@@ -110,11 +98,11 @@ public class Menu {
         //Augmentation du nombre de joueurs
         btnright.setOnAction(event -> {
             if(nbplayer < 8) {
-                clic.play();
+                Sounds.PlaySound(Sounds.ClicSound());
                 nbplayer = nbplayer + 1;
                 center.setText(nbplayer.toString());
             }else{
-                erreur.play();
+                Sounds.PlaySound(Sounds.ErrorSound());
             }
 
         });
