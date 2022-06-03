@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.example.a1_projetjava_t33.RandomToken.Variables.*;
+import static com.example.a1_projetjava_t33.Timer.Variable.btnTop;
 
-//Interface de jeu
+//--------------------------------Interface de jeu ------------------------------------------------
 public class Interface {
-    Button btnTop;
 
     //--------------------------------Lancement fenêtre ------------------------------------------------
     public void start(Stage stage) throws IOException {
@@ -58,6 +58,7 @@ public class Interface {
 
 //--------------------------------LEFT - NB PLAYERS + TURNS WIN------------------------------------------------
         Players.PlayersPane(usedToken, nbToken, btnTop, files, imgView, blacklist, root);
+
 
 //--------------------------------BOTTOM  - MOVES LIST ------------------------------------------------
         MovesList.MovesListPane(root);

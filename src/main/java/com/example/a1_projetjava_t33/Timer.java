@@ -12,9 +12,18 @@ import javafx.scene.media.AudioClip;
 //--------------------------------TOP - TIMER ------------------------------------------------
 
 public class Timer {
-    //--------------------------------Tuile de la fenêtre ------------------------------------------------
+    //--------------------------------On stock la valeur du bouton ------------------------------------------------
+    static class Variable {
+        public static Button btnTop;
 
-    public static void TimerPane(BorderPane root){
+        Variable(Button btnTop) {
+            this.btnTop = btnTop;
+        }
+
+    }
+
+    //--------------------------------Tuile de la fenêtre ------------------------------------------------
+    public static Variable TimerPane(BorderPane root){
         FlowPane topBorderPane = new FlowPane();
         root.setTop(topBorderPane);
 
@@ -39,6 +48,8 @@ public class Timer {
         topBorderPane.getChildren().add(bar);
         BorderPane.setMargin(btnTop, new Insets(10, 10, 10, 10));
         BorderPane.setMargin(bar, new Insets(10, 10, 10, 10));
+
+        return new Variable(btnTop);
     }
 
     //--------------------------------Barre de progression ------------------------------------------------
